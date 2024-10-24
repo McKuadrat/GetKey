@@ -4,6 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1c87c9;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #155d8b;
+        }
+
+        .reward-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .reward-card label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .copy-key {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .copy-key span {
+            font-weight: bold;
+            color: #333;
+        }
+
+    </style>
     <script>
         const questions = {
             1: [
@@ -25,32 +98,26 @@
 
         let currentLevel = 1;
         let currentQuestion = 0;
-        let userAnswers = [];
 
         function loadQuestion() {
-            if (currentQuestion < 3) {
-                document.getElementById('question').textContent = questions[currentLevel][currentQuestion].question;
-                document.getElementById('answer').value = '';
-            } else {
-                showResult();
-            }
+            document.getElementById('question').textContent = questions[currentLevel][currentQuestion].question;
+            document.getElementById('answer').value = '';
         }
 
         function checkAnswer() {
             const userAnswer = parseInt(document.getElementById('answer').value);
             const correctAnswer = questions[currentLevel][currentQuestion].answer;
             if (userAnswer === correctAnswer) {
-                userAnswers.push(true);
+                currentQuestion++;
+                if (currentQuestion < 3) {
+                    loadQuestion();
+                } else {
+                    document.getElementById('quiz').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                }
             } else {
-                userAnswers.push(false);
+                alert("Wrong answer! Try again.");
             }
-            currentQuestion++;
-            loadQuestion();
-        }
-
-        function showResult() {
-            document.getElementById('quiz').style.display = 'none';
-            document.getElementById('result').style.display = 'block';
         }
 
         function selectReward() {
@@ -74,24 +141,28 @@
     </script>
 </head>
 <body>
-    <h1>Math Quiz</h1>
-    <div id="quiz">
-        <p id="question"></p>
-        <input type="text" id="answer" placeholder="Your answer">
-        <button onclick="checkAnswer()">Submit</button>
-    </div>
+    <div class="container">
+        <h1>Math Quiz</h1>
+        <div id="quiz">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Your answer">
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
 
-    <div id="result" style="display:none;">
-        <h2>Choose your reward:</h2>
-        <input type="radio" id="key" name="reward" value="key">
-        <label for="key">CoordGui Key</label><br>
-        <input type="radio" id="comingSoon" name="reward" value="comingSoon">
-        <label for="comingSoon">Coming Soon</label><br>
-        <button onclick="selectReward()">Submit</button>
+        <div id="result" style="display:none;">
+            <div class="reward-card">
+                <h2>Choose your reward:</h2>
+                <input type="radio" id="key" name="reward" value="key">
+                <label for="key">CoordGui Key</label><br>
+                <input type="radio" id="comingSoon" name="reward" value="comingSoon">
+                <label for="comingSoon">Coming Soon</label><br>
+                <button onclick="selectReward()">Submit</button>
 
-        <div id="copyKey" style="display:none;">
-            <p>CoordGui Key: <span id="keyCode"></span></p>
-            <button onclick="copyKey()">Copy Key</button>
+                <div class="copy-key" id="copyKey">
+                    <p>CoordGui Key: <span id="keyCode"></span></p>
+                    <button onclick="copyKey()">Copy Key</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
