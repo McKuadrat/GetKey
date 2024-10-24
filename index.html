@@ -1,146 +1,169 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Key Quiz</title>
+    <title>Math Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
+            max-width: 400px;
             text-align: center;
         }
 
-        .question {
-            margin: 20px 0;
+        h1 {
+            font-size: 24px;
+            color: #333;
         }
 
-        .hidden {
-            display: none;
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
         button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: #007BFF;
+            background-color: #1c87c9;
             color: white;
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background: #0056b3;
+            background-color: #155d8b;
         }
+
+        .reward-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .reward-card label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .copy-key {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .copy-key span {
+            font-weight: bold;
+            color: #333;
+        }
+
     </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Quiz Matematika</h1>
-        <div id="quiz-container"></div>
-        <button id="submit-btn" class="hidden">Kirim Jawaban</button>
-        <div id="result" class="hidden"></div>
-    </div>
     <script>
-        // Menghasilkan soal matematika acak
-        function generateQuestion() {
-            const num1 = Math.floor(Math.random() * 10) + 1; // angka 1-10
-            const num2 = Math.floor(Math.random() * 10) + 1; // angka 1-10
-            const operator = Math.random() < 0.5 ? '+' : '-';
-            const question = `${num1} ${operator} ${num2}`;
-            const answer = operator === '+' ? num1 + num2 : num1 - num2;
-            return { question, answer };
+        const questions = {
+            1: [
+                { question: "5 + 3 =", answer: 8 },
+                { question: "7 - 2 =", answer: 5 },
+                { question: "1 + 6 =", answer: 7 }
+            ],
+            2: [
+                { question: "12 + 5 =", answer: 17 },
+                { question: "10 - 4 =", answer: 6 },
+                { question: "8 + 8 =", answer: 16 }
+            ],
+            3: [
+                { question: "25 + 10 =", answer: 35 },
+                { question: "30 - 15 =", answer: 15 },
+                { question: "12 + 20 =", answer: 32 }
+            ]
+        };
+
+        let currentLevel = 1;
+        let currentQuestion = 0;
+
+        function loadQuestion() {
+            document.getElementById('question').textContent = questions[currentLevel][currentQuestion].question;
+            document.getElementById('answer').value = '';
         }
 
-        const questions = [];
-        const userAnswers = [];
-
-        // Menghasilkan 3 soal
-        for (let i = 0; i < 3; i++) {
-            questions.push(generateQuestion());
-        }
-
-        // Menampilkan soal di GUI
-        const quizContainer = document.getElementById('quiz-container');
-        questions.forEach((q, index) => {
-            const questionElement = document.createElement('div');
-            questionElement.classList.add('question');
-            questionElement.innerHTML = `
-                <p>${index + 1}. ${q.question} = ?</p>
-                <input type="number" id="answer-${index}" placeholder="Jawaban Anda">
-            `;
-            quizContainer.appendChild(questionElement);
-        });
-
-        // Menampilkan tombol kirim
-        document.getElementById('submit-btn').classList.remove('hidden');
-        document.getElementById('submit-btn').addEventListener('click', () => {
-            let correct = true;
-
-            // Reset array jawaban pengguna untuk setiap pengiriman
-            userAnswers.length = 0;
-
-            questions.forEach((q, index) => {
-                const userAnswer = document.getElementById(`answer-${index}`).value;
-                userAnswers.push(userAnswer);
-                if (parseInt(userAnswer) !== q.answer) {
-                    correct = false;
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const correctAnswer = questions[currentLevel][currentQuestion].answer;
+            if (userAnswer === correctAnswer) {
+                currentQuestion++;
+                if (currentQuestion < 3) {
+                    loadQuestion();
+                } else {
+                    document.getElementById('quiz').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
                 }
-            });
-
-            showResult(correct);
-        });
-
-        // Menampilkan hasil
-        function showResult(correct) {
-            quizContainer.classList.add('hidden');
-            const resultDiv = document.getElementById('result');
-            resultDiv.classList.remove('hidden');
-            
-            if (correct) {
-                resultDiv.innerHTML = `
-                    <h2>Selamat! Anda Benar.</h2>
-                    <button id="get-key-btn">Dapatkan CoordGui Key</button>
-                `;
-                
-                document.getElementById('get-key-btn').addEventListener('click', () => {
-                    copyKey();
-                });
             } else {
-                resultDiv.innerHTML = `
-                    <h2>Beberapa jawaban Anda salah. Coba lagi!</h2>
-                    <p>Coming Soon...</p>
-                `;
+                alert("Wrong answer! Try again.");
             }
         }
 
-        // Menyalin kunci
+        function selectReward() {
+            const reward = document.querySelector('input[name="reward"]:checked').value;
+            if (reward === 'key') {
+                document.getElementById('keyCode').textContent = "0932982";
+                document.getElementById('copyKey').style.display = 'block';
+            } else {
+                alert('Coming Soon!');
+            }
+        }
+
         function copyKey() {
-            const coordGuiKey = "0932982";
-            navigator.clipboard.writeText(coordGuiKey).then(() => {
-                alert("Kunci CoordGui telah disalin: " + coordGuiKey);
-            }).catch(() => {
-                alert("Gagal menyalin kunci.");
+            const key = document.getElementById('keyCode').textContent;
+            navigator.clipboard.writeText(key).then(() => {
+                alert('CoordGui Key copied to clipboard!');
             });
         }
 
-        // Inisialisasi quiz
-        document.addEventListener("DOMContentLoaded", () => {
-            quizContainer.innerHTML = ""; // Kosongkan konten jika ada
-       
+        window.onload = loadQuestion;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Quiz</h1>
+        <div id="quiz">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Your answer">
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+
+        <div id="result" style="display:none;">
+            <div class="reward-card">
+                <h2>Choose your reward:</h2>
+                <input type="radio" id="key" name="reward" value="key">
+                <label for="key">CoordGui Key</label><br>
+                <input type="radio" id="comingSoon" name="reward" value="comingSoon">
+                <label for="comingSoon">Coming Soon</label><br>
+                <button onclick="selectReward()">Submit</button>
+
+                <div class="copy-key" id="copyKey">
+                    <p>CoordGui Key: <span id="keyCode"></span></p>
+                    <button onclick="copyKey()">Copy Key</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
