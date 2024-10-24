@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Matematika</title>
+    <title>Get Key Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,6 +42,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -92,6 +93,9 @@
         document.getElementById('submit-btn').addEventListener('click', () => {
             let correct = true;
 
+            // Reset array jawaban pengguna untuk setiap pengiriman
+            userAnswers.length = 0;
+
             questions.forEach((q, index) => {
                 const userAnswer = document.getElementById(`answer-${index}`).value;
                 userAnswers.push(userAnswer);
@@ -131,7 +135,7 @@
             const coordGuiKey = "0932982";
             navigator.clipboard.writeText(coordGuiKey).then(() => {
                 alert("Kunci CoordGui telah disalin: " + coordGuiKey);
-            }, () => {
+            }).catch(() => {
                 alert("Gagal menyalin kunci.");
             });
         }
@@ -139,7 +143,4 @@
         // Inisialisasi quiz
         document.addEventListener("DOMContentLoaded", () => {
             quizContainer.innerHTML = ""; // Kosongkan konten jika ada
-        });
-    </script>
-</body>
-</html>
+       
