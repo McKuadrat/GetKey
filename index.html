@@ -1,55 +1,124 @@
-<script>
-    const questions = {
-        1: [
-            { question: "5 + 3 =", answer: 8 },
-            { question: "7 - 2 =", answer: 5 },
-            { question: "1 + 6 =", answer: 7 }
-        ],
-        2: [
-            { question: "12 + 5 =", answer: 17 },
-            { question: "10 - 4 =", answer: 6 },
-            { question: "8 + 8 =", answer: 16 }
-        ],
-        3: [
-            { question: "25 + 10 =", answer: 35 },
-            { question: "30 - 15 =", answer: 15 },
-            { question: "12 + 20 =", answer: 32 }
-        ]
-    };
-
-    let currentLevel = 1;
-    let currentQuestionIndex = [];
-    let currentQuestion = {};
-
-    function loadQuestion() {
-        // If all questions have been answered, reset the question index
-        if (currentQuestionIndex.length === questions[currentLevel].length) {
-            currentQuestionIndex = [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        // Select a random question index that hasn't been used yet
-        let randomIndex;
-        do {
-            randomIndex = Math.floor(Math.random() * questions[currentLevel].length);
-        } while (currentQuestionIndex.includes(randomIndex));
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            text-align: center;
+        }
 
-        currentQuestionIndex.push(randomIndex);
-        currentQuestion = questions[currentLevel][randomIndex];
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
 
-        document.getElementById('question').textContent = currentQuestion.question;
-        document.getElementById('answer').value = '';
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1c87c9;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #155d8b;
+        }
+
+        .reward-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .reward-card label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .copy-key {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .copy-key span {
+            font-weight: bold;
+            color: #333;
+        }
+
+    </style>
+    <script>
+    const questions = [];
+    const numProblems = 3;
+
+    function generateRandomProblems() {
+        questions.length = 0; // Clear previous questions
+        for (let i = 0; i < numProblems; i++) {
+            const num1 = Math.floor(Math.random() * 30) + 1; // Random number between 1 and 30
+            const num2 = Math.floor(Math.random() * 30) + 1; // Random number between 1 and 30
+            const operation = Math.random() < 0.5 ? '+' : '-'; // Randomly choose + or -
+            let question, answer;
+
+            if (operation === '+') {
+                question = `${num1} + ${num2} =`;
+                answer = num1 + num2;
+            } else {
+                question = `${num1} - ${num2} =`;
+                answer = num1 - num2;
+            }
+
+            questions.push({ question, answer });
+        }
+    }
+
+    let currentQuestionIndex = 0;
+
+    function loadQuestion() {
+        if (currentQuestionIndex < questions.length) {
+            document.getElementById('question').textContent = questions[currentQuestionIndex].question;
+            document.getElementById('answer').value = '';
+        } else {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+        }
     }
 
     function checkAnswer() {
         const userAnswer = parseInt(document.getElementById('answer').value);
-        const correctAnswer = currentQuestion.answer;
+        const correctAnswer = questions[currentQuestionIndex].answer;
         if (userAnswer === correctAnswer) {
-            if (currentQuestionIndex.length < questions[currentLevel].length) {
-                loadQuestion();
-            } else {
-                document.getElementById('quiz').style.display = 'none';
-                document.getElementById('result').style.display = 'block';
-            }
+            currentQuestionIndex++;
+            loadQuestion();
         } else {
             alert("Wrong answer! Try again.");
         }
@@ -72,5 +141,36 @@
         });
     }
 
-    window.onload = loadQuestion;
+    window.onload = function() {
+        generateRandomProblems(); // Generate random problems on load
+        loadQuestion(); // Load the first question
+    };
 </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Quiz</h1>
+        <div id="quiz">
+            <p id="question"></p>
+            <input type="text" id="answer" placeholder="Your answer">
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+
+        <div id="result" style="display:none;">
+            <div class="reward-card">
+                <h2>Choose your reward:</h2>
+                <input type="radio" id="key" name="reward" value="key">
+                <label for="key">CoordGui Key</label><br>
+                <input type="radio" id="comingSoon" name="reward" value="comingSoon">
+                <label for="comingSoon">Coming Soon</label><br>
+                <button onclick="selectReward()">Submit</button>
+
+                <div class="copy-key" id="copyKey">
+                    <p>CoordGui Key: <span id="keyCode"></span></p>
+                    <button onclick="copyKey()">Copy Key</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
