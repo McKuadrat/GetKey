@@ -76,6 +76,12 @@
             color: #333;
         }
 
+        .notification {
+            margin-top: 10px;
+            color: red;
+            font-weight: bold;
+        }
+
     </style>
     <script>
     const questions = [];
@@ -129,6 +135,7 @@
         if (reward === 'key') {
             document.getElementById('keyCode').textContent = "0932982";
             document.getElementById('copyKey').style.display = 'block';
+            document.getElementById('notification').textContent = "This Code Will Change In 24 Hours!";
         } else {
             alert('Coming Soon!');
         }
@@ -169,6 +176,7 @@
                     <p>CoordGui Key: <span id="keyCode"></span></p>
                     <button onclick="copyKey()">Copy Key</button>
                 </div>
+                <p class="notification" id="notification"></p>
             </div>
         </div>
     </div>
