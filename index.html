@@ -76,16 +76,16 @@
             color: #333;
         }
 
-        .notification {
+        .time-notification {
             margin-top: 10px;
-            color: red;
+            color: #f00;
             font-weight: bold;
         }
-
     </style>
     <script>
     const questions = [];
     const numProblems = 3;
+    let keySelected = false;
 
     function generateRandomProblems() {
         questions.length = 0; // Clear previous questions
@@ -116,6 +116,7 @@
         } else {
             document.getElementById('quiz').style.display = 'none';
             document.getElementById('result').style.display = 'block';
+            showTimeNotification();
         }
     }
 
@@ -131,21 +132,45 @@
     }
 
     function selectReward() {
+        if (keySelected) {
+            alert("You have already selected a reward.");
+            return;
+        }
+
         const reward = document.querySelector('input[name="reward"]:checked').value;
         if (reward === 'key') {
             document.getElementById('keyCode').textContent = "6227623";
             document.getElementById('copyKey').style.display = 'block';
-            document.getElementById('notification').textContent = "This Code Will Change In 24 Hours!";
-        } else {
-            alert('Coming Soon!');
+        } else if (reward === 'trainerKey') {
+            document.getElementById('keyCode').textContent = "z737kd8G02JD87123";
+            document.getElementById('copyKey').style.display = 'block';
         }
+        keySelected = true; // Prevent further selection after first submit
     }
 
     function copyKey() {
         const key = document.getElementById('keyCode').textContent;
         navigator.clipboard.writeText(key).then(() => {
-            alert('CoordGui Key copied to clipboard!');
+            alert('Key copied to clipboard!');
         });
+    }
+
+    // Function to calculate the time until 3 PM the next day
+    function showTimeNotification() {
+        const now = new Date();
+        const currentHour = now.getHours();
+        let hoursLeft;
+
+        if (currentHour >= 15) {
+            // If the time is after 3 PM, calculate for the next day
+            hoursLeft = (24 - currentHour) + 15; // Hours left today + hours until 3 PM tomorrow
+        } else {
+            // If it's before 3 PM today
+            hoursLeft = 15 - currentHour;
+        }
+
+        const notification = `This Code Will Change In ${hoursLeft} Hours`;
+        document.getElementById('timeNotification').textContent = notification;
     }
 
     window.onload = function() {
@@ -168,15 +193,16 @@
                 <h2>Choose your reward:</h2>
                 <input type="radio" id="key" name="reward" value="key">
                 <label for="key">CoordGui Key</label><br>
-                <input type="radio" id="comingSoon" name="reward" value="comingSoon">
-                <label for="comingSoon">Coming Soon</label><br>
+                <input type="radio" id="trainerKey" name="reward" value="trainerKey">
+                <label for="trainerKey">MC Trainer Key</label><br>
                 <button onclick="selectReward()">Submit</button>
 
                 <div class="copy-key" id="copyKey">
                     <p>CoordGui Key: <span id="keyCode"></span></p>
                     <button onclick="copyKey()">Copy Key</button>
                 </div>
-                <p class="notification" id="notification"></p>
+
+                <p class="time-notification" id="timeNotification"></p>
             </div>
         </div>
     </div>
