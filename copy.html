@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MC Kuadrat Script</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .code-box {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border: none;
+            background: #007acc;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background: #005a9e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>MC Kuadrat Script</h2><h3>Require Script :</h3>
+    <div class="code-box" id="requireScript">require(116142197724235):Menyoo("your roblox id Name")</div>
+    <button class="button" onclick="copyToClipboard('requireScript')">Copy</button>
+    
+    <h3>LoadString Script :</h3>
+    <div class="code-box" id="loadStringScript">loadstring(game:HttpGet("https://raw.githubusercontent.com/McKuadrat/Cpg/refs/heads/main/Menyoo"))()</div>
+    <button class="button" onclick="copyToClipboard('loadStringScript')">Copy</button>
+</div>
+
+<script>
+    function copyToClipboard(id) {
+        var text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            alert("Copied!");
+        }).catch(function(err) {
+            alert("Failed to copy: " + err);
+        });
+    }
+</script>
+
+</body>
+</html>
