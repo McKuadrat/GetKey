@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reverse Username</title>
+  <style>
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+}
+
+.captcha-step {
+  margin-bottom: 20px;
+}
+
+.captcha-display {
+  font-size: 24px;
+  letter-spacing: 5px;
+  background-color: #444;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #555;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #666;
+}
+
+.hidden {
+  display: none;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Reverse Username</h1>
+    <textarea id="usernameInput" placeholder="Masukkan Username atau Display Name Roblox"></textarea>
+    <div id="captchaContainer"></div>
+    <div id="resultContainer" class="hidden">
+      <h2>Hasil:</h2>
+      <p id="reversedUsername"></p>
+    </div>
+  </div>
+  <script>
+  const captchaContainer = document.getElementById('captchaContainer');
+const resultContainer = document.getElementById('resultContainer');
+const reversedUsername = document.getElementById('reversedUsername');
+const usernameInput = document.getElementById('usernameInput');
+
+let currentStep = 0;
+const totalSteps = 3;
+let captchas = [];
+
+function generateCaptcha() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let captcha = '';
+  for (let i = 0; i < 5; i++) {
+    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return captcha;
+}
+
+function createCaptchaStep(step) {
+  const captchaText = generateCaptcha();
+  captchas[step] = captchaText;
+
+  const stepDiv = document.createElement('div');
+  stepDiv.classList.add('captcha-step');
+
+  const display = document.createElement('div');
+  display.classList.add('captcha-display');
+  display.textContent = captchaText;
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = 'Masukkan CAPTCHA di atas';
+
+  const button = document.createElement('button');
+  button.textContent = 'Verifikasi';
+
+  button.addEventListener('click', () => {
+    if (input.value === captchaText) {
+      if (step + 1 < totalSteps) {
+        captchaContainer.innerHTML = '';
+        createCaptchaStep(step + 1);
+      } else {
+        processUsername();
+      }
+    } else {
+      alert('CAPTCHA salah. Silakan coba lagi.');
+      input.value = '';
+    }
+  });
+
+  stepDiv.appendChild(display);
+  stepDiv.appendChild(input);
+  stepDiv.appendChild(button);
+
+  captchaContainer.appendChild(stepDiv);
+}
+
+function reverseAlphabet(text) {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const reversed = 'ZYXWVUTSRQPONMLKJIHGFEDCBA';
+
+  return text
+    .split('')  // Pecah input menjadi karakter-karakter
+    .map(char => {
+      const isLower = char === char.toLowerCase();
+      const upperChar = char.toUpperCase();
+      const index = alphabet.indexOf(upperChar);
+
+      if (index !== -1) {
+        const newChar = reversed.charAt(index);
+        // Kembalikan huruf kecil dari hasil terbalikkan
+        return newChar.toLowerCase(); // Semua huruf jadi lowercase
+      }
+
+      return char; // Karakter lain (seperti angka) tetap tidak berubah
+    })
+    .join(''); // Gabungkan kembali menjadi string
+}
+
+function processUsername() {
+  const username = usernameInput.value.trim();
+  if (username === '') {
+    alert('Silakan masukkan Username atau Display Name terlebih dahulu.');
+    return;
+  }
+  const reversed = reverseAlphabet(username);
+  reversedUsername.textContent = reversed;
+  captchaContainer.innerHTML = '';
+  resultContainer.classList.remove('hidden');
+}
+
+// Inisialisasi langkah pertama
+createCaptchaStep(currentStep);
+
+</script>
+</body>
+</html>
