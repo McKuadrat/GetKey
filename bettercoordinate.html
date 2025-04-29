@@ -166,22 +166,21 @@ function reverseAlphabet(text) {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const reversed = 'ZYXWVUTSRQPONMLKJIHGFEDCBA';
 
-  return text
-    .split('')  // Pecah input menjadi karakter-karakter
+  // Hapus semua karakter non-huruf (simbol, angka, dll)
+  const cleaned = text.replace(/[^a-zA-Z]/g, '');
+
+  return cleaned
+    .split('')
     .map(char => {
-      const isLower = char === char.toLowerCase();
       const upperChar = char.toUpperCase();
       const index = alphabet.indexOf(upperChar);
-
       if (index !== -1) {
         const newChar = reversed.charAt(index);
-        // Kembalikan huruf kecil dari hasil terbalikkan
-        return newChar.toLowerCase(); // Semua huruf jadi lowercase
+        return newChar.toLowerCase(); // hasil akhir semua lowercase
       }
-
-      return char; // Karakter lain (seperti angka) tetap tidak berubah
+      return ''; // jika bukan huruf, buang
     })
-    .join(''); // Gabungkan kembali menjadi string
+    .join('');
 }
 
 function processUsername() {
