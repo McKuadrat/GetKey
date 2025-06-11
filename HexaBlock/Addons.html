@@ -20,42 +20,30 @@
       </ul>
     </nav>
   </header>
+
   <input type="text" id="searchInput" placeholder="Search Addons" />
-  <main class="map-list" id="mapList">
-    
-  </main>
+  <main class="map-list" id="mapList"></main>
+
+  <footer>
+    <p>© 2025 MC Kuadrat | HexaBlock Project</p>
+  </footer>
 
 <script>
-  fetch('settings.json')
-  .then(response => response.json())
-  .then(data => {
-    const container = document.getElementById('mapList');
-
-    // Filter data hanya jika kategori mengandung "map"
-    const filteredData = data.filter(item =>
-      item.kategori.toLowerCase().includes("addon")
-    );
-
-    filteredData.forEach(item => {
-      const card = document.createElement('div');
-      card.classList.add('map-card');
-      card.innerHTML = `
-        <img src="${item.img}" alt="${item.nama}" />
-        <h2>${item.nama}</h2>
-        <p>By: ${item.creator}</p>
-        <p>Versi: ${item.supportVersion}</p>
-        <p>Kategori: ${item.kategori}</p>
-        <a href="detail.html" class="btn-download" onclick='saveDetail(${JSON.stringify(item)})'>Lihat Detail</a>
-      `;
-      container.appendChild(card);
-    });
-  });
-
   let originalData = [];
+
+  // Ambil dan filter hanya kategori addon
+  fetch('settings.json')
+    .then(response => response.json())
+    .then(data => {
+      originalData = data.filter(item =>
+        item.kategori.toLowerCase().includes("addon")
+      );
+      renderCards(originalData); // Render awal hanya untuk Addons
+    });
 
   function renderCards(data) {
     const container = document.getElementById('mapList');
-    container.innerHTML = ''; // Clear list dulu
+    container.innerHTML = ''; // Bersihkan list
 
     data.forEach(item => {
       const card = document.createElement('div');
@@ -72,12 +60,11 @@
     });
   }
 
-  // Fungsi untuk menyimpan detail ke localStorage
   function saveDetail(item) {
     localStorage.setItem('hexablockDetail', JSON.stringify(item));
   }
 
-  // Tambahkan event listener ke input search
+  // Fungsi pencarian
   document.getElementById('searchInput').addEventListener('input', function () {
     const keyword = this.value.toLowerCase();
     const filtered = originalData.filter(item =>
@@ -87,12 +74,6 @@
     );
     renderCards(filtered);
   });
-
 </script>
-
-  
-  <footer>
-    <p>© 2025 MC Kuadrat | HexaBlock Project</p>
-  </footer>
 </body>
 </html>
