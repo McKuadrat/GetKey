@@ -10,23 +10,13 @@
     "deskripsi": "Harvest Town – Valley is a Minecraft Bedrock Edition map that brings a farming and village life experience inspired by classic games like Harvest Moon."
   },
   {
-  "nama": "Harvest Town – Jomok Edition",
+  "nama": "Harvest Town",
   "img": "asset/maps/test.jpg",
   "creator": "MC Kuadrat",
-  "supportVersion": "1.21.82+",
-  "downloadPath": "asset/file/Harvest_Town.mcworld",
+  "supportVersion": "1.19.80+",
+  "downloadPath": "asset/file/Harvest_Town_V1.0",
   "kategori": "Addon, Farming",
   "edition": "Bedrock Edition",
-  "deskripsi": "Harvest Town – Valley is a Minecraft Bedrock Edition map that brings a farming and village life experience inspired by classic games like Harvest Moon."
-  },
-  {
-  "nama": "Kucing Garing",
-  "img": "asset/maps/test.jpg",
-  "creator": "MC Kuadrat",
-  "supportVersion": "1.21.82+",
-  "downloadPath": "asset/file/Harvest_Town.mcworld",
-  "kategori": "Texture, Farming",
-  "edition": "Bedrock Edition",
-  "deskripsi": "Harvest Town – Valley is a Minecraft Bedrock Edition map that brings a farming and village life experience inspired by classic games like Harvest Moon."
+  "deskripsi": "Harvest Town is a Minecraft Bedrock Edition Is First Series Of All Harvest Town."
   }
 ]
