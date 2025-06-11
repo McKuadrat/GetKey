@@ -21,10 +21,38 @@
     </nav>
   </header>
 
-  <main class="map-list">
-      <h2>Empty<h2>
+  <main class="map-list" id="mapList">
+    
   </main>
 
+<script>
+  fetch('settings.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('mapList');
+
+    // Filter data hanya jika kategori mengandung "map"
+    const filteredData = data.filter(item =>
+      item.kategori.toLowerCase().includes("texture")
+    );
+
+    filteredData.forEach(item => {
+      const card = document.createElement('div');
+      card.classList.add('map-card');
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.nama}" />
+        <h2>${item.nama}</h2>
+        <p>By: ${item.creator}</p>
+        <p>Versi: ${item.supportVersion}</p>
+        <p>Kategori: ${item.kategori}</p>
+        <a href="detail.html" class="btn-download" onclick='saveDetail(${JSON.stringify(item)})'>Lihat Detail</a>
+      `;
+      container.appendChild(card);
+    });
+  });
+</script>
+
+  
   <footer>
     <p>© 2025 MC Kuadrat | HexaBlock Project</p>
   </footer>
