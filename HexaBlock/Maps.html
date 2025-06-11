@@ -27,10 +27,25 @@
       <h2>Harvest Town - Valley</h2>
       <p>Versi: 1.21.82 | By: MC Kuadrat</p>
       <span class="category">Kategori: Map, Farm</span>
-      <a href="asset/file/Harvest Town _ Valley update beta.mcworld" download class="btn-download">⬇ Download</a>
+      <a href="detail.html" onclick="HarvestTown()" download class="btn-download">⬇ Download</a>
     </div>
   </main>
 
+<script>
+  function HarvestTown() {
+    const detailData = {
+      nama: "Harvest Town – Valley",
+      deskripsi: "Harvest Town – Valley is a Minecraft Bedrock Edition map that brings a farming and village life experience inspired by classic games like Harvest Moon. In this world, players can build and upgrade their house up to Level 2, unlocking new features as they progress. You can purchase a second farming plot, explore a mining system similar to Harvest Moon’s, and sell mined resources for in-game currency called Gold. Players can buy chickens for 200 Gold, and only earn profit by selling them after 20 in-game days—selling earlier results in a 20 Gold loss. The map features a dynamic economy, a weather system with random daily conditions including clear skies, rain, and storms, and a weather forecast board to help plan your day. Every Saturday, players can use a public telephone near the selling station to purchase a Furnace (if their house is upgraded to Level 2) or buy bottles used for collecting honey. The world includes two main towns: Emerald Town as the central hub and Amber Town as a secondary location with its own charm. Harvest Town – Valley is more than just a map—it’s a simulation of peaceful rural life with strategy, timing, and creative freedom.",
+      kategori: "Map, Farming",
+      edition: "Bedrock Edition",
+      supportVersion: "1.21.82+",
+      downloadPath: "assets/file/Harvest Town _ Valley update beta.mcworld",
+      img: "asset/maps/ht.png"
+    };
+    localStorage.setItem("hexablockDetail", JSON.stringify(detailData));
+  }
+</script>
+  
   <footer>
     <p>© 2025 MC Kuadrat | HexaBlock Project</p>
   </footer>
