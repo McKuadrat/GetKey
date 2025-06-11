@@ -20,6 +20,7 @@
       </ul>
     </nav>
   </header>
+  <input type="text" id="searchInput" placeholder="Search Texture" />
 
   <main class="map-list" id="mapList">
     
@@ -50,6 +51,53 @@
       container.appendChild(card);
     });
   });
+
+  <script>
+  let originalData = [];
+
+  fetch('settings.json')
+    .then(response => response.json())
+    .then(data => {
+      originalData = data;
+      renderCards(data); // Tampilkan semua saat awal
+    });
+
+  function renderCards(data) {
+    const container = document.getElementById('mapList');
+    container.innerHTML = ''; // Clear list dulu
+
+    data.forEach(item => {
+      const card = document.createElement('div');
+      card.classList.add('map-card');
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.nama}" />
+        <h2>${item.nama}</h2>
+        <p>By: ${item.creator}</p>
+        <p>Versi: ${item.supportVersion}</p>
+        <p>Kategori: ${item.kategori}</p>
+        <a href="detail.html" class="btn-download" onclick='saveDetail(${JSON.stringify(item)})'>Lihat Detail</a>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  // Fungsi untuk menyimpan detail ke localStorage
+  function saveDetail(item) {
+    localStorage.setItem('hexablockDetail', JSON.stringify(item));
+  }
+
+  // Tambahkan event listener ke input search
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const keyword = this.value.toLowerCase();
+    const filtered = originalData.filter(item =>
+      item.nama.toLowerCase().includes(keyword) ||
+      item.kategori.toLowerCase().includes(keyword) ||
+      item.creator.toLowerCase().includes(keyword)
+    );
+    renderCards(filtered);
+  });
+</script>
+
 </script>
 
   
