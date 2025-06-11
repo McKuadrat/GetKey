@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harvest Town – HexaBlock</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>HexaBlock</h1>
+    <p>Blocks, Scripts, and Innovation</p>
+  </header>
+
+  <main class="detail-page">
+    <h2>🌾 Harvest Town – Valley</h2>
+
+    <img src="assets/maps/ht.png" alt="Harvest Town Map" class="detail-img" />
+
+    <p><strong>Deskripsi:</strong><br>
+      Harvest Town Valley adalah dunia bertema pertanian dengan alur mirip Stardew Valley. Dibuat untuk pemain santai yang ingin membangun desa dan mengelola pertanian.
+    </p>
+
+    <p><strong>Kategori:</strong> Map, Farming</p>
+    <p><strong>Edisi Minecraft:</strong> Bedrock Edition (BE)</p>
+    <p><strong>Support Version:</strong> 1.21.82+</p>
+
+    <a href="assets/file/Harvest Town _ Valley update beta.mcworld" class="btn-download" download>
+      ⬇ Download .mcworld
+    </a>
+  </main>
+
+<script>
+  const data = JSON.parse(localStorage.getItem("hexablockDetail"));
+
+  if (data) {
+    document.querySelector('.detail-page').innerHTML = `
+      <h2>${data.nama}</h2>
+      <img src="${data.img}" alt="${data.nama}" class="detail-img" />
+      <p><strong>Deskripsi:</strong><br>${data.deskripsi}</p>
+      <p><strong>Kategori:</strong> ${data.kategori}</p>
+      <p><strong>Edisi Minecraft:</strong> ${data.edition}</p>
+      <p><strong>Support Version:</strong> ${data.supportVersion}</p>
+      <a href="${data.downloadPath}" class="btn-download" download>⬇ Download</a>
+    `;
+  }
+</script>
+
+  
+  <footer>
+    <p>© 2025 MC Kuadrat | HexaBlock</p>
+  </footer>
+</body>
+</html>
