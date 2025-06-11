@@ -54,13 +54,6 @@
   
   let originalData = [];
 
-  fetch('settings.json')
-    .then(response => response.json())
-    .then(data => {
-      originalData = data;
-      renderCards(data); // Tampilkan semua saat awal
-    });
-
   function renderCards(data) {
     const container = document.getElementById('mapList');
     container.innerHTML = ''; // Clear list dulu
