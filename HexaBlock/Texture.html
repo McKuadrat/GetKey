@@ -36,7 +36,7 @@
     .then(response => response.json())
     .then(data => {
       originalData = data.filter(item =>
-        item.kategori.toLowerCase().includes("addon")
+        item.kategori.toLowerCase().includes("texture")
       );
       renderCards(originalData); // Render awal hanya untuk Addons
     });
