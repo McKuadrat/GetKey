@@ -22,13 +22,7 @@
   </header>
 
   <main class="map-list">
-    <div class="map-card">
-      <img src="asset/maps/ht.png" alt="Farm Map" />
-      <h2>Harvest Town - Valley</h2>
-      <p>Versi: 1.21.82 | By: MC Kuadrat</p>
-      <span class="category">Kategori: Map, Farm</span>
-      <a href="detail.html" onclick="HarvestTown()" class="btn-download">⬇ Download</a>
-    </div>
+    
   </main>
 
 <script>
@@ -55,19 +49,6 @@
     function saveDetail(item) {
       localStorage.setItem('hexablockDetail', JSON.stringify(item));
     }
-  
-  function HarvestTown() {
-    const detailData = {
-      nama: "Harvest Town – Valley",
-      deskripsi: "",
-      kategori: "Map, Farming",
-      edition: "Bedrock Edition",
-      supportVersion: "1.21.82+",
-      downloadPath: "assets/file/Harvest Town _ Valley update beta.mcworld",
-      img: "asset/maps/ht.png"
-    };
-    localStorage.setItem("hexablockDetail", JSON.stringify(detailData));
-  }
 </script>
 
   
