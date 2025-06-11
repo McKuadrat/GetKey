@@ -27,10 +27,28 @@
       <h2>Harvest Town - Valley</h2>
       <p>Versi: 1.21.82 | By: MC Kuadrat</p>
       <span class="category">Kategori: Map, Farm</span>
-      <a href="asset/file/Harvest Town _ Valley update beta.mcworld" download class="btn-download">⬇ Download</a>
+      <a href= download class="btn-download">⬇ Download</a>
     </div>
   </main>
 
+<a href="detail.html" onclick="setDetailData()">Lihat Detail</a>
+
+<script>
+  function HarvestTown() {
+    const detailData = {
+      nama: "Harvest Town – Valley",
+      deskripsi: "Map bertema pertanian mirip Harvest Moon",
+      kategori: "Map, Farming",
+      edition: "Bedrock Edition",
+      supportVersion: "1.21.82+",
+      downloadPath: "assets/file/Harvest Town _ Valley update beta.mcworld",
+      img: "asset/maps/ht.png"
+    };
+    localStorage.setItem("hexablockDetail", JSON.stringify(detailData));
+  }
+</script>
+
+  
   <footer>
     <p>© 2025 MC Kuadrat | HexaBlock Project</p>
   </footer>
