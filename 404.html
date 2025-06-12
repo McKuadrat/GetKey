@@ -2,9 +2,183 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="HexaBlock/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <title>Halaman Tidak Ditemukan</title>
+  <style>
+    body {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: 'Press Start 2P', monospace;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-bottom: 4px solid #000;
+}
+
+h1 {
+  color: #8fff70;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.map-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.map-card {
+  background-color: #2e2e2e;
+  border: 3px solid #111;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 4px #000;
+}
+
+.map-card img {
+  max-width: 100%;
+  border: 2px solid #000;
+  margin-bottom: 10px;
+}
+
+.btn-download {
+  background-color: #3fa34d;
+  color: #fff;
+  padding: 10px;
+  display: inline-block;
+  border: 2px solid #000;
+  text-decoration: none;
+  font-size: 10px;
+}
+
+footer {
+  background-color: #111;
+  padding: 10px;
+  font-size: 10px;
+}
+
+.category {
+  display: inline-block;
+  background-color: #444;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #000;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 8px;
+}
+
+nav a:hover {
+  color: #6cc24a;
+}
+
+.map-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.detail-page {
+  padding: 30px 20px;
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: #262626;
+  border: 4px solid #111;
+  border-radius: 10px;
+  box-shadow: 0 0 0 4px #000;
+  text-align: left;
+}
+
+.detail-page h2 {
+  font-size: 16px;
+  color: #8fff70;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.detail-img {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  border: 3px solid #000;
+  border-radius: 4px;
+}
+
+.detail-page p {
+  font-size: 10px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  color: #ffffff;
+  text-align: justify;
+}
+
+.detail-page strong {
+  color: #ffffff;
+}
+
+.btn-download {
+  background-color: #3fa34d;
+  color: #fff;
+  padding: 12px 16px;
+  display: inline-block;
+  border: 2px solid #000;
+  text-decoration: none;
+  font-size: 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn-download:hover {
+  background-color: #2e8c3d;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .detail-page {
+    padding: 20px 10px;
+  }
+  .detail-page p {
+    font-size: 9px;
+  }
+}
+
+#searchInput {
+  width: 80%;
+  padding: 8px;
+  margin: 20px auto;
+  font-size: 12px;
+  font-family: 'Press Start 2P', monospace;
+  display: block;
+  background-color: #2a2a2a;
+  border: 2px solid #000;
+  color: #fff;
+}
+  </style>
 </head>
 <body>
   <h1>😕 404 - Halaman tidak ditemukan</h1>
