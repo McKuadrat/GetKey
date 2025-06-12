@@ -182,6 +182,12 @@ nav a:hover {
 </head>
 <body>
   <h1>😕 404 - Halaman tidak ditemukan</h1>
-  <p>Ups, sepertinya halaman yang kamu cari tidak ada.</p>
+  <p id="url">Ups, sepertinya halaman yang kamu cari tidak ada.</p>
+
+  <script>
+    const urll = window.location.href;
+
+    document.getElementById("url").textContent = "Ups, sepertinya halaman " + urll + " Tidak Ada.";
+  </script>
 </body>
 </html>
